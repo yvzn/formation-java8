@@ -1,81 +1,86 @@
 <!doctype html>
-<html lang="en">	
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Présentation Java 8</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/night.min.css" id="theme">	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.min.css" id="theme">	
-	<!--Add support for earlier versions of Internet Explorer -->
-	<!--[if lt IE 9]>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/html5shiv.js"></script>
-	<![endif]-->
+    <meta charset="utf-8">
+    <title>Présentation Java 8</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/night.min.css"
+          id="theme">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.min.css"
+          id="theme">
+    <!--Add support for earlier versions of Internet Explorer -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
 </head>
- 
+
 <body>
-	<div class="reveal">
-		<div class="slides">
-			<section>			
-				<h1>Présentation Java 8</h1>
-				<h4>Yvan Razafindramanana</h4>
-			</section>
-			<section>
-				<h2>Sommaire</h2>
-				<!--
-				<ol>
-					<li>Introduction</li>
-				</ol>
-				-->
-				<!--
-				<aside class="notes">
-				</aside>				
-				-->
-			</section>
-			<section>
-				<section>
-					<h3>Le package java.time</h3>
-					<p>Standardiser (enfin..?) les dates</p>
-					<dl>
-						<dt>LocalDate</dt>
-						<dt>LocalTime</dt>
-						<dt>LocalDateTime</dt>
-						<dt>Instant</dt>
-						<dt>Duration</dt>
-					</dl>
-				</section>
-				<section>
-					<h3>Le package java.time</h3>
-					<p>Représentation d'une date (avec fuseau horaire optionel)</p>
-<pre><code class="hljs" data-trim contenteditable>						
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Présentation Java 8</h1>
+            <footer><a href="mailto:yvan.razafindramanana@softeam.fr" rel="author">Yvan Razafindramanana</a></footer>
+        </section>
+        <section>
+            <h2>En préambule...</h2>
+            <ol>
+                <li>java.time</li>
+                <li>java.util.Optional</li>
+                <li>Interfaces fonctionnelles et expressions lambdas</li>
+                <li>Des interfaces enrichies</li>
+                <li>Streams</li>
+                <li>Multithreading</li>
+            </ol>
+        </section>
+        <section>
+            <section>
+                <h3>Package java.time</h3>
+                <p>Standardiser (enfin..?) les dates</p>
+                <dl>
+                    <dt>LocalDate</dt>
+                    <dt>LocalTime</dt>
+                    <dt>LocalDateTime</dt>
+                    <dt>Instant</dt>
+                    <dt>Duration</dt>
+                </dl>
+            </section>
+            <section>
+                <h3>Package java.time</h3>
+                <p>Représentation d'une date (avec fuseau horaire optionel)</p>
+<pre><code class="hljs" data-trim contenteditable>
 LocalDate.now();
 
 LocalDate.of(2016, Month.MAY, 3);
 
 LocalDateTime.of(2016, Month.MAY, 4, 8, 37);
 </code></pre>
-				</section>
-				<section>
-					<h3>Le package java.time</h3>
-					<p>Calculs d'intervalles entre dates</p>
-<pre><code class="hljs" data-trim contenteditable>						
+            </section>
+            <section>
+                <h3>Package java.time</h3>
+                <p>Calculs d'intervalles entre dates</p>
+<pre><code class="hljs" data-trim contenteditable>
 Period p = Period.between(birthday, today);
 
 long p2 = ChronoUnit.DAYS.between(birthday, today);
 
 System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
-                   " months, and " + p.getDays() +
-                   " days old. (" + p2 + " days total)");
+" months, and " + p.getDays() +
+" days old. (" + p2 + " days total)");
 </code></pre>
-				</section>
-			</section>				
-			<section>				
-				<section>
-					<h3>java.util.Optional</h3>
-					<p>Représenter explicitement les objets nullable</p>
-					<p>Eviter les <code>== null</code> ou <code>!= null</code></p>
-				</section>
-				<section>
-					<h3>java.util.Optional</h3>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Ajout d'une date de naissance</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>java.util.Optional</h3>
+                <p>Représenter explicitement les objets nullable</p>
+                <p>Eviter les <code>== null</code> ou <code>!= null</code></p>
+            </section>
+            <section>
+                <h3>java.util.Optional</h3>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Chanteur> rechercherParNom(String nom) {
 ...
@@ -86,111 +91,221 @@ Optional&lt;Chanteur> monChanteur = rechercherParNom("Prince Roger Nelson");
 ... monChanteur.isPresent();
 ... monChanteur.get();
 </code></pre>
-				</section>
-			</section>
-			<section>
-				<h3>Concurrent adders</h3>
-				<p>Compteurs thread safe performants (en comparaison avec les Atomic*)</p>
-				<p>Gestion d'un cache de mise à jour en cas d'accès concurrent</p>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Ajout d'un service de recherche d'utilisateurs</p>
+                <ul>
+                    <li>par nom</li>
+                    <li>par prénom</li>
+                    <li>né avant 1980</li>
+                </ul>
+                <p>Utiliser une boucle for(Utilisateur :)</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <p>Notion de trait</p>
+                <p>Single Abstract Method (SAM)</p>
+                <p>Annotation <code>@FunctionalInterface</code></p>
+<pre><code class="hljs" data-trim contenteditable>
+@FunctionalInterface
+public interface Recherche {
+boolean tester(Utilisateur utilisateur);
+}
+</code></pre>
+            </section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <p>Déclaration à la volée d'une implémentation</p>
+                <p>Java 7- : anonymous inner class</p>
+<pre><code class="hljs" data-trim contenteditable>
+public Optional&lt;Utilisateur> rechercherParNom(String nom) {
+    return rechercherDansListe(utilisateurs, new Recherche() {
+        @Override
+        public boolean tester(Utilisateur utilisateur) {
+            return nom.equals(utilisateur.getNom());
+        }
+    });
+}
+</code></pre>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Ajout d'une interface fonctionnelle <code>Recherche</code></p>
+                <p>Ajout d'une méthode générique rechercherDansListe avec ITF en paramètre</p>
+                <p>Création des anonymous inner class</p>
+            </section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <p>Java 8+ : Alléger l'écriture</p>
+<pre><code class="hljs" data-trim contenteditable>
+public Optional&lt;Utilisateur> rechercherParNom(String nom) {
+    return rechercherDansListe(utilisateurs,
+        (Utilisateur utilisateur) ->
+            { return nom.equals(utilisateur.getNom())); }
+}
+</code></pre>
+            </section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <dl>
+                    <dt>Inférence des types</dt>
+                    <dd>Si le compilateur peut les déduire automatiquement</dd>
+                    <dt>Simplification (parenthèses et accolades)</dt>
+                    <dd>Si l'implémentation le permet</dd>
+                </dl>
+<pre><code class="hljs" data-trim contenteditable>
+public Optional&lt;Utilisateur> rechercherParNom(String nom) {
+    return rechercherDansListe(utilisateurs, utilisateur -> nom.equals(utilisateur.getNom()));
+}
+</code></pre>
+            </section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <h4>java.util.function</h4>
+                <p>Interfaces <i>standard</i> de l'API</p>
+                <dl>
+                    <dt>Function&lt;T, R&gt;</dt>
+                    <dd>Accepte T et renvoie R</dd>
+                    <dt>Predicate&lt;T&gt;</dt>
+                    <dd>Accepte T et renvoie un booléen</dd>
+                    <dt>Consumer&lt;T&gt;</dt>
+                    <dd>Accepte T et renvoie void</dd>
+                    <dt>Supplier&lt;T&gt;</dt>
+                    <dd>Fournit une instance de T (exemple: constructeur)</dd>
+                    <dt>...</dt>
+                </dl>
+            </section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <h4>Références de méthode</h4>
+                <p>Et si ma méthode existe déjà ?</p>
+<pre><code class="hljs" data-trim contenteditable>
+rechercherDansListe(utilisateurs, this::estMajeur);
+rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
+</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>Interfaces enrichies</h3>
+                <dl>
+                    <dt>Méthodes par défaut : defender methods</dt>
+                    <dd>Comportement générique</dd>
+                    <dd>Ajouté à toutes les implémentations (rétrocompatible)</dd>
+                    <dd>Mot clé <code>default</code></dd>
+                    <dt>Méthodes statiques</dt>
+                    <dt>Composition d'interfaces</dt>
+                </dl>
+            </section>
+            <section>
+                <h3>Interfaces enrichies</h3>
+                <p>Les méthodes par défaut ont permis d'ajouter de nombreux comportements aux API du JDK</p>
+                <dl>
+                    <dt>Map.computeIfAbsent(K, Function&lt;K, V&gt;)</dt>
+                    <dt>Map.computeIfPresent(K, Function&lt;K, V&gt;)</dt>
+                    <dt>Iterable.forEach(Consumer&lt;? super T&gt;)</dt>
+                </dl>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>Streams</h3>
+                <p>Simplifier les traitements itératifs sur les collections</p>
+                <p>Implémenter le pattern Map-Filter-Reduce</p>
+                <p>Utilise fortement les interfaces fonctionnelles, lambda et références de méthode</p>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <p>Initialisation</p>
+<pre><code class="hljs" data-trim contenteditable>
+Stream&lt;E> Collection&lt;E>.stream();
+
+new ArrayList().stream();
+new HashMap().stream();
+</code></pre>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <h4>Filtrer</h4>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <h4>Transformer (Map)</h4>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <h4>Trier</h4>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <h4>Aggréger (Reduce)</h4>
+                <p>Collectors</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>Multithrading</h3>
+                <p>Concurrent adders : compteurs thread safe performants (vs Atomic*)</p>
+                <p>Gestion d'un cache de mise à jour en cas d'accès concurrent</p>
 <pre><code class="hljs" data-trim contenteditable>
 LongAdder i = new LongAdder();
 i.increment();
 </code></pre>
-			</section>
-			<section>
-				<section>
-					<h3>Les interfaces fonctionnelles</h3>
-					<p>Notion de trait</p>
-					<p>Single Abstract Method (SAM)</p>
-					<p>Annotation <code>@FunctionalInterface</code></p>
-<pre><code class="hljs" data-trim contenteditable>
-@FunctionalInterface
-public interface RechercheService {
-	boolean tester(Chanteur nom);
-}
-</code></pre>
-				</section>
-				<section>
-					<h3>Les interfaces fonctionnelles</h3>
-					<p>Déclaration à la volée d'une implémentation (par exemple en paramètre)</p>
-					<p>Java 7- : anonymous inner class</p>
-<pre><code class="hljs" data-trim contenteditable>
-</code></pre>
-				</section>
-				<section>
-					<h3>Les interfaces fonctionnelles</h3>
-					<h4>Les expressions lambda</h4>
-					<p>Java 8+ : Alléger l'écriture</p>
-<pre><code class="hljs" data-trim contenteditable>
-</code></pre>
-				</section>
-				<section>
-					<h3>Les interfaces fonctionnelles</h3>
-					<h4>Les expressions lambda : inférence de type</h4>
-					<p>Si le compilateur peut déduire les types automatiquement</p>
-<pre><code class="hljs" data-trim contenteditable>
-</code></pre>
-				</section>
-				<section>
-					<h3>Les interfaces fonctionnelles</h3>
-					<h4>Les expressions lambda : simplification</h4>
-					<p>Si l'interface prend un seul paramètre</p>
-<pre><code class="hljs" data-trim contenteditable>
-</code></pre>
-				</section>
-				<section>
-					<h3>Les interfaces fonctionnelles</h3>
-					<p>Et si ma méthode existe déjà ?</p>
-					<p>Références de méthode</p>
-<pre><code class="hljs" data-trim contenteditable>
-</code></pre>
-				</section>				
-			</section>
-		</div>
-	</div>
-	<a href="https://github.com/yvzn/formation-java8" id="fork-me-link"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>				
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js"></script>
-	<script>
-		Reveal.initialize({
-				dependencies: [
-					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-		
-		});
-		Reveal.addEventListener('slidechanged', function(event) {
-			var index = event.indexh + event.indexv;
-			document.getElementById('fork-me-link').style.display = (0 == index) ? 'block' : 'none';
-		});
-	</script>
+            </section>
+            <section>
+                <h3>Multithrading</h3>
+                <dl>
+                    <dt>collection.parallelStream()</dt>
+                    <dt>Arrays.parallelSort()</dt>
+                    <dt>StampedLock...</dt>
+                </dl>
+            </section>
+        </section>
+        <section>
+            <h3>Merci</h3>
+            <p>Q &amp; A ?</p>
+            <address><a href="https://github.com/yvzn/formation-java8">github.com/yvzn/formation-java8</a></address>
+        </section>
+    </div>
+</div>
+<a href="https://github.com/yvzn/formation-java8" id="fork-me-link"><img
+        style="position: absolute; top: 0; right: 0; border: 0;"
+        src="https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67"
+        alt="Fork me on GitHub"
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"></a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js"></script>
+<script>
+    Reveal.initialize({
+        dependencies: [
+            {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.min.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+
+    });
+    Reveal.addEventListener('slidechanged', function (event) {
+        var index = event.indexh + event.indexv;
+        document.getElementById('fork-me-link').style.display = (0 == index) ? 'block' : 'none';
+    });
+</script>
 </body>
 </html>
 
 <!--
-Références de méthode et de constructeur
 
-Defender methods
-default
-Le fait que nous puissions à présent définir des méthodes par défaut dans les interfaces a permis aux auteurs de la JDK d'ajouter de nombreuses choses aux interfaces de l'API collection.
 
-Méthodes statiques et Interfaces
 
-Dans l'API
-
-java.util.function.Function
-java.util.function.Predicate
-java.util.function.Consumer
-java.util.function.Supplier
-java.util.function.BinaryOperator
-
-Map Filter Reduce
-collection.stream()
-collection.parallelStream() 
-Arrays.parallelSort
 
 Collectors
 groupBy
 
-computeIfAbsent
 
 -->
