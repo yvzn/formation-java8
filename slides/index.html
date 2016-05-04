@@ -77,11 +77,11 @@ System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
 				<section>
 					<h3>java.util.Optional</h3>
 <pre><code class="hljs" data-trim contenteditable>
-public Optional&lt;String> rechercherParNom(String nom) {
+public Optional&lt;Chanteur> rechercherParNom(String nom) {
 ...
 }
 
-Optional&lt;String> monChanteur = rechercherParNom("Prince Roger Nelson");
+Optional&lt;Chanteur> monChanteur = rechercherParNom("Prince Roger Nelson");
 
 ... monChanteur.isPresent();
 ... monChanteur.get();
@@ -103,11 +103,48 @@ i.increment();
 					<p>Notion de trait</p>
 					<p>Single Abstract Method (SAM)</p>
 					<p>Annotation <code>@FunctionalInterface</code></p>
+<pre><code class="hljs" data-trim contenteditable>
+@FunctionalInterface
+public interface RechercheService {
+	boolean tester(Chanteur nom);
+}
+</code></pre>
 				</section>
 				<section>
 					<h3>Les interfaces fonctionnelles</h3>
-					<p>Ancienne version utilisant des inner class</p>
+					<p>Déclaration à la volée d'une implémentation (par exemple en paramètre)</p>
+					<p>Java 7- : anonymous inner class</p>
+<pre><code class="hljs" data-trim contenteditable>
+</code></pre>
 				</section>
+				<section>
+					<h3>Les interfaces fonctionnelles</h3>
+					<h4>Les expressions lambda</h4>
+					<p>Java 8+ : Alléger l'écriture</p>
+<pre><code class="hljs" data-trim contenteditable>
+</code></pre>
+				</section>
+				<section>
+					<h3>Les interfaces fonctionnelles</h3>
+					<h4>Les expressions lambda : inférence de type</h4>
+					<p>Si le compilateur peut déduire les types automatiquement</p>
+<pre><code class="hljs" data-trim contenteditable>
+</code></pre>
+				</section>
+				<section>
+					<h3>Les interfaces fonctionnelles</h3>
+					<h4>Les expressions lambda : simplification</h4>
+					<p>Si l'interface prend un seul paramètre</p>
+<pre><code class="hljs" data-trim contenteditable>
+</code></pre>
+				</section>
+				<section>
+					<h3>Les interfaces fonctionnelles</h3>
+					<p>Et si ma méthode existe déjà ?</p>
+					<p>Références de méthode</p>
+<pre><code class="hljs" data-trim contenteditable>
+</code></pre>
+				</section>				
 			</section>
 		</div>
 	</div>
@@ -130,12 +167,6 @@ i.increment();
 </html>
 
 <!--
-
-interface fonctionnelle
-
-Lambda (Différentes étapes)
-Inférence
-
 Références de méthode et de constructeur
 
 Defender methods
