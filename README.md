@@ -1,7 +1,6 @@
-# Java 8 par le code
+# Présentation Java 8 
 _Yvan Razafindramanana_
 
-La présentation se trouve dans le répertoire slides.
+La présentation se trouve dans le répertoire src/main/webapp.
 
-Le code source se trouve dans le répertoire sources.
-Les différentes branches correspondent aux étapes de la présentation.
+Le code source se trouve dans le répertoire src/main/java.
