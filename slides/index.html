@@ -2,9 +2,10 @@
 <html lang="en">	
 <head>
 	<meta charset="utf-8">
-	<title>Formation Java 8 par le code</title>
+	<title>Présentation Java 8</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/moon.min.css" id="theme">	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/night.min.css" id="theme">	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.min.css" id="theme">	
 	<!--Add support for earlier versions of Internet Explorer -->
 	<!--[if lt IE 9]>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/html5shiv.js"></script>
@@ -15,10 +16,98 @@
 	<div class="reveal">
 		<div class="slides">
 			<section>			
-				<h1>Java 8 par le code</h1>
-				<h3>Yvan Razafindramanana</h3>
+				<h1>Présentation Java 8</h1>
+				<h4>Yvan Razafindramanana</h4>
+			</section>
+			<section>
+				<h2>Sommaire</h2>
+				<!--
+				<ol>
+					<li>Introduction</li>
+				</ol>
+				-->
+				<!--
 				<aside class="notes">
 				</aside>				
+				-->
+			</section>
+			<section>
+				<section>
+					<h3>Le package java.time</h3>
+					<p>Standardiser (enfin..?) les dates</p>
+					<dl>
+						<dt>LocalDate</dt>
+						<dt>LocalTime</dt>
+						<dt>LocalDateTime</dt>
+						<dt>Instant</dt>
+						<dt>Duration</dt>
+					</dl>
+				</section>
+				<section>
+					<h3>Le package java.time</h3>
+					<p>Représentation d'une date (avec fuseau horaire optionel)</p>
+<pre><code class="hljs" data-trim contenteditable>						
+LocalDate.now();
+
+LocalDate.of(2016, Month.MAY, 3);
+
+LocalDateTime.of(2016, Month.MAY, 4, 8, 37);
+</code></pre>
+				</section>
+				<section>
+					<h3>Le package java.time</h3>
+					<p>Calculs d'intervalles entre dates</p>
+<pre><code class="hljs" data-trim contenteditable>						
+Period p = Period.between(birthday, today);
+
+long p2 = ChronoUnit.DAYS.between(birthday, today);
+
+System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
+                   " months, and " + p.getDays() +
+                   " days old. (" + p2 + " days total)");
+</code></pre>
+				</section>
+			</section>				
+			<section>				
+				<section>
+					<h3>java.util.Optional</h3>
+					<p>Représenter explicitement les objets nullable</p>
+					<p>Eviter les <code>== null</code> ou <code>!= null</code></p>
+				</section>
+				<section>
+					<h3>java.util.Optional</h3>
+<pre><code class="hljs" data-trim contenteditable>
+public Optional&lt;String> rechercherParNom(String nom) {
+...
+}
+
+Optional&lt;String> monChanteur = rechercherParNom("Prince Roger Nelson");
+
+... monChanteur.isPresent();
+... monChanteur.get();
+</code></pre>
+				</section>
+			</section>
+			<section>
+				<h3>Concurrent adders</h3>
+				<p>Compteurs thread safe performants (en comparaison avec les Atomic*)</p>
+				<p>Gestion d'un cache de mise à jour en cas d'accès concurrent</p>
+<pre><code class="hljs" data-trim contenteditable>
+LongAdder i = new LongAdder();
+i.increment();
+</code></pre>
+			</section>
+			<section>
+				<section>
+					<h3>Les interfaces fonctionnelles</h3>
+					<p>Notion de trait</p>
+					<p>Single Abstract Method (SAM)</p>
+					<p>Annotation <code>@FunctionalInterface</code></p>
+				</section>
+				<section>
+					<h3>Les interfaces fonctionnelles</h3>
+					<p>Ancienne version utilisant des inner class</p>
+				</section>
 			</section>
 		</div>
 	</div>
@@ -27,6 +116,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js"></script>
 	<script>
 		Reveal.initialize({
+				dependencies: [
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+		
 		});
 		Reveal.addEventListener('slidechanged', function(event) {
 			var index = event.indexh + event.indexv;
@@ -36,32 +129,22 @@
 </body>
 </html>
 
-<!--java.time.Instant
-java.time.Duration
-LocalDate / LocalTime / LocalDateTime
-
-Map Filter Reduce
-collection.stream()
-collection.parallelStream() 
-
-Collectors
-
-Parallel
-
-Optional
+<!--
 
 interface fonctionnelle
-@FunctionalInterface
-Single Abstract Method (SAM)
+
+Lambda (Différentes étapes)
+Inférence
 
 Références de méthode et de constructeur
 
 Defender methods
 default
-
 Le fait que nous puissions à présent définir des méthodes par défaut dans les interfaces a permis aux auteurs de la JDK d'ajouter de nombreuses choses aux interfaces de l'API collection.
 
 Méthodes statiques et Interfaces
+
+Dans l'API
 
 java.util.function.Function
 java.util.function.Predicate
@@ -69,12 +152,14 @@ java.util.function.Consumer
 java.util.function.Supplier
 java.util.function.BinaryOperator
 
-Lambda
-Inférence
-
-Concurrent Adders
-LongAdder
-DoubleAdder
-
+Map Filter Reduce
+collection.stream()
+collection.parallelStream() 
 Arrays.parallelSort
+
+Collectors
+groupBy
+
+computeIfAbsent
+
 -->
