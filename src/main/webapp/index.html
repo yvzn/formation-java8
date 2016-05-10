@@ -233,9 +233,10 @@ rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
             </section>
             <section>
                 <h3>Streams</h3>
-                <p>Initialisation</p>
+                <h4>Initialisation</h4>
+                <p>Méthode <code>stream</code> ajoutée sur l'interface <code>Collection</code></p>
 <pre><code class="hljs" data-trim contenteditable>
-Stream&lt;E> Collection&lt;E>.stream();
+Stream&lt;E> Collection&lt;E>::stream()
 
 new ArrayList().stream();
 new HashMap().stream();
@@ -243,29 +244,55 @@ new HashMap().stream();
             </section>
             <section>
                 <h3>Streams</h3>
-                <h4>Filtrer</h4>
-<!--
-Fluent interface (désignation chaînée / chaînage de méthodes)
-
-filter estMajeur
-filter estMasculin
-forEach(toDebugString)
--->
+                <h4>Filtrer (Filter)</h4>
+                <p>Nouveau stream avec les objets validant un prédicat</p>
+<pre><code class="hljs" data-trim contenteditable>
+Stream&lt;T>::filter(Predicate&lt;? super T> predicate)
+</code></pre>
+                <p>Pattern fluent interface (désignation chaînée / chaînage de méthodes)</p>
+                <p>Les filtres peuvent être chainés</p>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>filter pour estMajeur + estMasculin + forEach(toDebugString)</p>
             </section>
             <section>
                 <h3>Streams</h3>
                 <h4>Transformer (Map)</h4>
-<!--
-filter estMasculin map(getPrenom)
--->
+                <p>Nouveau stream en appliquant une transformation</p>
+<pre><code class="hljs" data-trim contenteditable>
+Stream&lt;R>::map(Function&lt;? super T, ? extends R> predicate)
+</code></pre>
+                <dl>
+                    <dt>mapToInt</dt>
+                    <dt>mapToDouble</dt>
+                    <dd>versions spécialisées pour transformer en primitive</dd>
+                </dl>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>filter estMasculin + map(getPrenom) + forEach</p>
             </section>
             <section>
                 <h3>Streams</h3>
                 <h4>Trier</h4>
-<!--
-sort
-Interface Comparator
--->
+                <p>Nouveau stream avec tri naturel ou un comparateur</p>
+<pre><code class="hljs" data-trim contenteditable>
+Stream&lt;T>::sorted()
+Stream&lt;T>::sorted(Comparator&lt;? super T> comparator)
+</code></pre>
+                <p><code>Comparator&lt;T></code> permet de générer des implémentations à la volée</p>
+<pre><code class="hljs" data-trim contenteditable>
+Comparator&lt;T> Comparator::comparing(Function&lt;? super T,? extends U> keyExtractor)
+default Comparator&lt;T> Comparator::thenComparing(Function&lt;? super T,? extends U> keyExtractor)
+</code></pre>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>map(getPrenom) + sorted + forEach</p>
+                <p>map(getPrenom) + sorted(Comparator.reverseOrder) + forEach</p>
+                <p>sorted(Comparing getNom thenComparing getPrenom) + forEach</p>
+                <p>références de méthodes + méthodes par défaut</p>
             </section>
             <section>
                 <h3>Streams</h3>
@@ -277,6 +304,7 @@ Collectors.groupingBy => date de naissance min
 Collectors.joining => toDebugString
 summingInt
 maxBy
+partitionBy
 -->
             </section>
 <!--
