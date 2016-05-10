@@ -14,10 +14,6 @@ public class Utilisateur {
     private String prenom;
 
     private Genre genre;
-
-    public boolean estMasculin() {
-        return Genre.MASCULIN.equals(genre);
-    }
 }
 
 
@@ -26,4 +22,6 @@ public class Utilisateur {
 
 // private LocalDate dateNaissance;
 
-// boolean estMajeur() { ChronoUnit.YEAR... }
+// public boolean estMajeur() { ChronoUnit.YEAR... }
+
+// public boolean estMasculin() {

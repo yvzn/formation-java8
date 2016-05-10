@@ -4,5 +4,5 @@ import java.util.Optional;
 
 @FunctionalInterface
 public interface Recherche {
-    boolean tester(Utilisateur utilisateur);
+    boolean estResultatValide(Utilisateur utilisateur);
 }

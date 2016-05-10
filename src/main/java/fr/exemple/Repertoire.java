@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class Repertoire {
 
-    private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
+    private List<Utilisateur> utilisateurs = new ArrayList<>();
 }
 
 // public Optional<Utilisateur> rechercherParNom(String nom) {

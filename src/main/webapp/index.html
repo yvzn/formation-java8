@@ -112,7 +112,7 @@ Optional&lt;Chanteur> monChanteur = rechercherParNom("Prince Roger Nelson");
 <pre><code class="hljs" data-trim contenteditable>
 @FunctionalInterface
 public interface Recherche {
-boolean tester(Utilisateur utilisateur);
+boolean estResultatValide(Utilisateur utilisateur);
 }
 </code></pre>
             </section>
@@ -124,7 +124,7 @@ boolean tester(Utilisateur utilisateur);
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
     return rechercherDansListe(utilisateurs, new Recherche() {
         @Override
-        public boolean tester(Utilisateur utilisateur) {
+        public boolean estResultatValide(Utilisateur utilisateur) {
             return nom.equals(utilisateur.getNom());
         }
     });
@@ -164,6 +164,15 @@ public Optional&lt;Utilisateur> rechercherParNom(String nom) {
             </section>
             <section>
                 <h3>Interfaces fonctionnelles et Lambdas</h3>
+                <h4>Références de méthode</h4>
+                <p>Et si ma méthode existe déjà ?</p>
+<pre><code class="hljs" data-trim contenteditable>
+rechercherDansListe(utilisateurs, this::estMajeur);
+rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
+</code></pre>
+            </section>
+            <section>
+                <h3>Interfaces fonctionnelles et Lambdas</h3>
                 <h4>java.util.function</h4>
                 <p>Interfaces <i>standard</i> de l'API</p>
                 <dl>
@@ -178,14 +187,10 @@ public Optional&lt;Utilisateur> rechercherParNom(String nom) {
                     <dt>...</dt>
                 </dl>
             </section>
-            <section>
-                <h3>Interfaces fonctionnelles et Lambdas</h3>
-                <h4>Références de méthode</h4>
-                <p>Et si ma méthode existe déjà ?</p>
-<pre><code class="hljs" data-trim contenteditable>
-rechercherDansListe(utilisateurs, this::estMajeur);
-rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
-</code></pre>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Ajout des méthodes estMajeur et estMasculin</p>
+                <p>Remplacer Recherche par Predicate (remettre)</p>
             </section>
         </section>
         <section>
@@ -200,6 +205,10 @@ rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
                     <dt>Composition d'interfaces</dt>
                 </dl>
             </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Ajout d'une méthode </p>
+            </section>
             <section>
                 <h3>Interfaces enrichies</h3>
                 <p>Les méthodes par défaut ont permis d'ajouter de nombreux comportements aux API du JDK</p>
@@ -209,13 +218,18 @@ rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
                     <dt>Iterable.forEach(Consumer&lt;? super T&gt;)</dt>
                 </dl>
             </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Créer d'une map organisée par année de naissance (avec forEach et computeIfAbsent)</p>
+                <p>Créer une méthode toDebugString pour utilisateur puis répertoire</p>
+            </section>
         </section>
         <section>
             <section>
                 <h3>Streams</h3>
                 <p>Simplifier les traitements itératifs sur les collections</p>
                 <p>Implémenter le pattern Map-Filter-Reduce</p>
-                <p>Utilise fortement les interfaces fonctionnelles, lambda et références de méthode</p>
+                <p>Notion de programmation fonctionnelle : interfaces fonctionnelles, lambda et références de méthode</p>
             </section>
             <section>
                 <h3>Streams</h3>
@@ -230,20 +244,48 @@ new HashMap().stream();
             <section>
                 <h3>Streams</h3>
                 <h4>Filtrer</h4>
+<!--
+Fluent interface (désignation chaînée / chaînage de méthodes)
+
+filter estMajeur
+filter estMasculin
+forEach(toDebugString)
+-->
             </section>
             <section>
                 <h3>Streams</h3>
                 <h4>Transformer (Map)</h4>
+<!--
+filter estMasculin map(getPrenom)
+-->
             </section>
             <section>
                 <h3>Streams</h3>
                 <h4>Trier</h4>
+<!--
+sort
+Interface Comparator
+-->
             </section>
             <section>
                 <h3>Streams</h3>
                 <h4>Aggréger (Reduce)</h4>
                 <p>Collectors</p>
+<!--
+Collectors.toList
+Collectors.groupingBy => date de naissance min
+Collectors.joining => toDebugString
+summingInt
+maxBy
+-->
             </section>
+<!--
+Notions d'optimisation
+Streams are lazy; computation on the source data is only performed when the terminal operation is initiated, and source elements are consumed only as needed.
+stream pipeline
+terminal operations :
+http://www.leveluplunch.com/java/examples/stream-terminal-operations-example/
+-->
         </section>
         <section>
             <section>

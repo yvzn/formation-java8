@@ -18,7 +18,8 @@ public class UtilisateurTest {
                 new Utilisateur("Fauré", "Gabriel", Genre.MASCULIN), // LocalDate.of(1980, Month.MAY, 12)),
                 new Utilisateur("Ravel", "Maurice", Genre.MASCULIN), // LocalDate.of(1990, Month.MARCH, 7)),
                 new Utilisateur("Satie", "Éric", Genre.MASCULIN), // LocalDate.of(2000, Month.MAY, 17)),
-                new Utilisateur("Poulenc", "Francis", Genre.MASCULIN) // LocalDate.of(2010, Month.JANUARY, 7)),
+                new Utilisateur("Poulenc", "Francis", Genre.MASCULIN), // LocalDate.of(2010, Month.JANUARY, 7)),
+                new Utilisateur("Robert", "Schumann", Genre.MASCULIN) // LocalDate.of(1980, Month.JUNE, 8)),
         );
     }
 
