@@ -64,13 +64,13 @@ Period p = Period.between(birthday, today);
 long p2 = ChronoUnit.DAYS.between(birthday, today);
 
 System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
-" months, and " + p.getDays() +
-" days old. (" + p2 + " days total)");
+    " months, and " + p.getDays() +
+    " days old. (" + p2 + " days total)");
 </code></pre>
             </section>
             <section data-background="#4d7e65">
                 <h3>Demo-time</h3>
-                <p>Ajout d'une date de naissance</p>
+                <p>Date de naissance + estMajeur</p>
             </section>
         </section>
         <section>
@@ -82,14 +82,14 @@ System.out.println("You are " + p.getYears() + " years, " + p.getMonths() +
             <section>
                 <h3>java.util.Optional</h3>
 <pre><code class="hljs" data-trim contenteditable>
-public Optional&lt;Chanteur> rechercherParNom(String nom) {
-...
+public Optional&lt;Utilisateur> rechercherParNom(String nom) {
+    ...
 }
 
-Optional&lt;Chanteur> monChanteur = rechercherParNom("Prince Roger Nelson");
+Optional&lt;Utilisateur> monUtilisateur = rechercherParNom("Ravel");
 
-... monChanteur.isPresent();
-... monChanteur.get();
+... monUtilisateur.isPresent();
+... monUtilisateur.get();
 </code></pre>
             </section>
             <section data-background="#4d7e65">
@@ -111,8 +111,8 @@ Optional&lt;Chanteur> monChanteur = rechercherParNom("Prince Roger Nelson");
                 <p>Annotation <code>@FunctionalInterface</code></p>
 <pre><code class="hljs" data-trim contenteditable>
 @FunctionalInterface
-public interface Recherche {
-boolean estResultatValide(Utilisateur utilisateur);
+public interface FiltreRecherche {
+    boolean estResultatValide(Utilisateur utilisateur);
 }
 </code></pre>
             </section>
@@ -122,18 +122,18 @@ boolean estResultatValide(Utilisateur utilisateur);
                 <p>Java 7- : anonymous inner class</p>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
-return rechercherDansListe(utilisateurs, new Recherche() {
-@Override
-public boolean estResultatValide(Utilisateur utilisateur) {
-return nom.equals(utilisateur.getNom());
-}
-});
+    return rechercherDansListe(utilisateurs, new FiltreRecherche() {
+        @Override
+        public boolean estResultatValide(Utilisateur utilisateur) {
+        return nom.equals(utilisateur.getNom());
+        }
+    });
 }
 </code></pre>
             </section>
             <section data-background="#4d7e65">
                 <h3>Demo-time</h3>
-                <p>Ajout d'une interface fonctionnelle <code>Recherche</code></p>
+                <p>Ajout d'une interface fonctionnelle <code>FiltreRecherche</code></p>
                 <p>Ajout d'une méthode générique rechercherDansListe avec ITF en paramètre</p>
                 <p>Création des anonymous inner class</p>
             </section>
@@ -142,9 +142,9 @@ return nom.equals(utilisateur.getNom());
                 <p>Java 8+ : Alléger l'écriture</p>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
-return rechercherDansListe(utilisateurs,
-(Utilisateur utilisateur) ->
-{ return nom.equals(utilisateur.getNom())); }
+    return rechercherDansListe(utilisateurs,
+        (Utilisateur utilisateur) ->
+            { return nom.equals(utilisateur.getNom())); }
 }
 </code></pre>
             </section>
@@ -158,7 +158,7 @@ return rechercherDansListe(utilisateurs,
                 </dl>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
-return rechercherDansListe(utilisateurs, utilisateur -> nom.equals(utilisateur.getNom()));
+    return rechercherDansListe(utilisateurs, utilisateur -> nom.equals(utilisateur.getNom()));
 }
 </code></pre>
             </section>
@@ -189,7 +189,7 @@ rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
             </section>
             <section data-background="#4d7e65">
                 <h3>Demo-time</h3>
-                <p>Ajout des méthodes estMajeur et estMasculin</p>
+                <p>Ajout de estMasculin</p>
                 <p>Remplacer Recherche par Predicate (remettre)</p>
             </section>
         </section>
@@ -304,9 +304,9 @@ default Comparator&lt;T> Comparator::thenComparing(Function&lt;? super T,? exten
                     operation</i></p>
 <pre><code class="hljs" data-trim contenteditable>
 int sum = widgets.stream()
-.filter(b -> b.getColor() == RED)
-.mapToInt(b -> b.getWeight())
-.sum();
+    .filter(b -> b.getColor() == RED)
+    .mapToInt(b -> b.getWeight())
+    .sum();
 </code></pre>
             </section>
             <section>
@@ -369,7 +369,7 @@ int sum = widgets.stream()
         </section>
         <section>
             <section>
-                <h3>Multithrading</h3>
+                <h3>Multithreading</h3>
                 <p>Concurrent adders : compteurs thread safe performants (vs Atomic*)</p>
                 <p>Gestion d'un cache de mise à jour en cas d'accès concurrent</p>
 <pre><code class="hljs" data-trim contenteditable>
@@ -378,7 +378,7 @@ i.increment();
 </code></pre>
             </section>
             <section>
-                <h3>Multithrading</h3>
+                <h3>Multithreading</h3>
                 <dl>
                     <dt>collection.parallelStream()</dt>
                     <dt>Arrays.parallelSort()</dt>
