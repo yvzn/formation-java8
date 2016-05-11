@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Présentation Java 8</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/night.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/league.min.css"
           id="theme">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.min.css"
           id="theme">
@@ -35,7 +35,7 @@
         <section>
             <section>
                 <h3>Package java.time</h3>
-                <p>Standardiser (enfin..?) les dates</p>
+                <p>Standardiser (enfin...) les dates</p>
                 <dl>
                     <dt>LocalDate</dt>
                     <dt>LocalTime</dt>
@@ -46,7 +46,7 @@
             </section>
             <section>
                 <h3>Package java.time</h3>
-                <p>Représentation d'une date (avec fuseau horaire optionel)</p>
+                <p>Représentation d'une date (avec heure)</p>
 <pre><code class="hljs" data-trim contenteditable>
 LocalDate.now();
 
@@ -122,12 +122,12 @@ boolean estResultatValide(Utilisateur utilisateur);
                 <p>Java 7- : anonymous inner class</p>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
-    return rechercherDansListe(utilisateurs, new Recherche() {
-        @Override
-        public boolean estResultatValide(Utilisateur utilisateur) {
-            return nom.equals(utilisateur.getNom());
-        }
-    });
+return rechercherDansListe(utilisateurs, new Recherche() {
+@Override
+public boolean estResultatValide(Utilisateur utilisateur) {
+return nom.equals(utilisateur.getNom());
+}
+});
 }
 </code></pre>
             </section>
@@ -142,9 +142,9 @@ public Optional&lt;Utilisateur> rechercherParNom(String nom) {
                 <p>Java 8+ : Alléger l'écriture</p>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
-    return rechercherDansListe(utilisateurs,
-        (Utilisateur utilisateur) ->
-            { return nom.equals(utilisateur.getNom())); }
+return rechercherDansListe(utilisateurs,
+(Utilisateur utilisateur) ->
+{ return nom.equals(utilisateur.getNom())); }
 }
 </code></pre>
             </section>
@@ -158,7 +158,7 @@ public Optional&lt;Utilisateur> rechercherParNom(String nom) {
                 </dl>
 <pre><code class="hljs" data-trim contenteditable>
 public Optional&lt;Utilisateur> rechercherParNom(String nom) {
-    return rechercherDansListe(utilisateurs, utilisateur -> nom.equals(utilisateur.getNom()));
+return rechercherDansListe(utilisateurs, utilisateur -> nom.equals(utilisateur.getNom()));
 }
 </code></pre>
             </section>
@@ -207,7 +207,7 @@ rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
             </section>
             <section data-background="#4d7e65">
                 <h3>Demo-time</h3>
-                <p>Ajout d'une méthode </p>
+                <p>Ajout d'une méthode sontTousValides</p>
             </section>
             <section>
                 <h3>Interfaces enrichies</h3>
@@ -229,7 +229,8 @@ rechercherDansListe(utilisateurs, Utilisateur::estMasculin);
                 <h3>Streams</h3>
                 <p>Simplifier les traitements itératifs sur les collections</p>
                 <p>Implémenter le pattern Map-Filter-Reduce</p>
-                <p>Notion de programmation fonctionnelle : interfaces fonctionnelles, lambda et références de méthode</p>
+                <p>Notion de programmation fonctionnelle : interfaces fonctionnelles, lambda et références de
+                    méthode</p>
             </section>
             <section>
                 <h3>Streams</h3>
@@ -281,7 +282,7 @@ Stream&lt;R>::map(Function&lt;? super T, ? extends R> predicate)
 Stream&lt;T>::sorted()
 Stream&lt;T>::sorted(Comparator&lt;? super T> comparator)
 </code></pre>
-                <p><code>Comparator&lt;T></code> permet de générer des implémentations à la volée</p>
+                <p><code>Comparator&lt;T></code> permet des implémentations à la volée</p>
 <pre><code class="hljs" data-trim contenteditable>
 Comparator&lt;T> Comparator::comparing(Function&lt;? super T,? extends U> keyExtractor)
 default Comparator&lt;T> Comparator::thenComparing(Function&lt;? super T,? extends U> keyExtractor)
@@ -292,28 +293,79 @@ default Comparator&lt;T> Comparator::thenComparing(Function&lt;? super T,? exten
                 <p>map(getPrenom) + sorted + forEach</p>
                 <p>map(getPrenom) + sorted(Comparator.reverseOrder) + forEach</p>
                 <p>sorted(Comparing getNom thenComparing getPrenom) + forEach</p>
-                <p>références de méthodes + méthodes par défaut</p>
+                <p>bon exemple de références de méthodes + méthodes par défaut</p>
             </section>
             <section>
                 <h3>Streams</h3>
-                <h4>Aggréger (Reduce)</h4>
-                <p>Collectors</p>
-<!--
-Collectors.toList
-Collectors.groupingBy => date de naissance min
-Collectors.joining => toDebugString
-summingInt
-maxBy
-partitionBy
--->
+                <h4>Aggréger ("Reduce")</h4>
+                <p>Notion de <i>terminal operation</i></p>
+                <p>Parcourt le stream pour produire un resultat</p>
+                <p>Le stream pipeline est <i>lazy</i> : les calculs seulement réalisés lors de la <i>terminal
+                    operation</i></p>
+<pre><code class="hljs" data-trim contenteditable>
+int sum = widgets.stream()
+.filter(b -> b.getColor() == RED)
+.mapToInt(b -> b.getWeight())
+.sum();
+</code></pre>
             </section>
-<!--
-Notions d'optimisation
-Streams are lazy; computation on the source data is only performed when the terminal operation is initiated, and source elements are consumed only as needed.
-stream pipeline
-terminal operations :
-http://www.leveluplunch.com/java/examples/stream-terminal-operations-example/
--->
+            <section>
+                <h3>Streams</h3>
+                <h4>Aggréger ("Reduce")</h4>
+                <p>Exemples de terminal operations :</p>
+                <dl>
+                    <dd>forEach</dd>
+                    <dd>toArray</dd>
+                    <dd>min / max / count</dd>
+                    <dd>anyMatch / allMatch / noneMatch</dd>
+                    <dd>findFirst / findAny</dd>
+                    <dd>reduce</dd>
+                    <dd>collect</dd>
+                    <!--
+                    terminal operations :
+                    http://www.leveluplunch.com/java/examples/stream-terminal-operations-example/
+                    -->
+                </dl>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>filter estMasculin + count</p>
+                <p>filter estMasculin + map dateNaissance + min</p>
+                <p>filter estMasculin + anyMatch estMajeur</p>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <h4>Aggréger ("Reduce")</h4>
+                <p><code>Collector&lt;T></code> permet de convertir les résultats dans une collection</p>
+                <dl>
+                    <dd>toList</dd>
+                    <dd>toMap</dd>
+                </dl>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>filter estMasculin + Collectors.toList</p>
+                <p>filter estMasculin + Collectors.toMap organisée par nom</p>
+                <p>Problématique de la map de listes (par année de naissance)</p>
+            </section>
+            <section>
+                <h3>Streams</h3>
+                <h4>Aggréger ("Reduce")</h4>
+                <p><code>Collector&lt;T></code> fournit des implémentations plus complexes</p>
+                <dl>
+                    <dd>joining</dd>
+                    <dd>groupingBy</dd>
+                    <dd>maxBy</dd>
+                    <dd>partitionBy</dd>
+                    <dd>...</dd>
+                </dl>
+            </section>
+            <section data-background="#4d7e65">
+                <h3>Demo-time</h3>
+                <p>Collectors.joining => toDebugString</p>
+                <p>Collectors.groupingBy => année de naissance min</p>
+                <p>Collectors.partitionBy => estMajeur</p>
+            </section>
         </section>
         <section>
             <section>

@@ -17,3 +17,7 @@ public class Repertoire {
 //  for (Utilisateur utilisateur : utilisateurs)
 
 // public Optional<Utilisateur> rechercherDansListe(List<Utilisateur> liste, Recherche filtre) {
+
+// repertoire.getUtilisateurs().stream().map(Utilisateur::getNom).collect(Collectors.joining(", "));
+
+// repertoire.getUtilisateurs().stream().collect(Collectors.groupingBy(utilisateur -> utilisateur.getDateNaissance().getYear()));
